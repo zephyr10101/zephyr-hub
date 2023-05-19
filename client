@@ -1,0 +1,125 @@
+local player = game.Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "ZephyrClient"
+gui.ResetOnSpawn = false
+gui.Parent = player.PlayerGui
+
+local openButton = Instance.new("TextButton")
+openButton.Size = UDim2.new(0, 130, 0, 36)
+openButton.Position = UDim2.new(0.5, -50, 0, 0)
+openButton.Text = "Open GUI"
+openButton.Parent = gui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 358, 0, 234)
+frame.Position = UDim2.new(0.5, -160, 0.5, -100)
+frame.BackgroundTransparency = 0.6
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.Parent = gui
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(0, 320, 0, 24)
+title.Position = UDim2.new(0.017, 0, 0.026, 0)
+title.Text = "Zephyr Hub Client"
+title.Parent = frame
+
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 24, 0, 24)
+closeButton.Position = UDim2.new(0.911, 0, 0.026, 0)
+closeButton.Text = "X"
+closeButton.Parent = frame
+
+local searchBox = Instance.new("TextBox")
+searchBox.Size = UDim2.new(0, 232, 0, 26)
+searchBox.Position = UDim2.new(0.017, 0, 0.154, 0)
+searchBox.ClearTextOnFocus = false
+searchBox.Parent = frame
+searchBox.Text = ""
+searchBox.PlaceholderText = "search script..."
+
+local scrollingFrame = Instance.new("ScrollingFrame")
+scrollingFrame.Size = UDim2.new(0, 232, 0, 155)
+scrollingFrame.Position = UDim2.new(0.017, 0, 0.295, 0)
+scrollingFrame.Parent = frame
+
+local selectedScriptFrame = Instance.new("Frame")
+selectedScriptFrame.Size = UDim2.new(0, 104, 0, 187)
+selectedScriptFrame.Position = UDim2.new(0.687, 0, 0.154, 0)
+selectedScriptFrame.Parent = frame
+
+local selectedScriptLabel = Instance.new("TextLabel")
+selectedScriptLabel.Size = UDim2.new(1, 0, 0, 24)
+selectedScriptLabel.Position = UDim2.new(0., 0, 0, 0)
+selectedScriptLabel.Text = "No script selected"
+selectedScriptLabel.Parent = selectedScriptFrame
+
+local runButton = Instance.new("TextButton")
+runButton.Size = UDim2.new(1, 0, 0, 24)
+runButton.Position = UDim2.new(0, 0, 0.872, 0)
+runButton.Text = "Run"
+runButton.Parent = selectedScriptFrame
+
+local function createButton(text, script)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 150, 0, 30)
+    button.Position = UDim2.new(0, 10, 0, #scrollingFrame:GetChildren() * 40)
+    button.Text = text
+    button.Parent = scrollingFrame
+
+    button.MouseButton1Click:Connect(function()
+        selectedScriptLabel.Text = text
+    end)
+
+    runButton.MouseButton1Click:Connect(function()
+        if selectedScriptLabel.Text == text then
+            loadstring(script)()
+        end
+    end)
+end
+
+local function openGUI()
+    openButton.Visible = false
+    frame.Visible = true
+end
+
+local function closeGUI()
+    openButton.Visible = true
+    frame.Visible = false
+end
+
+local function filterButtons(input)
+    local lowerInput = string.lower(input)
+    local visibleButtons = {}
+
+    for _, button in ipairs(scrollingFrame:GetChildren()) do
+        if button:IsA("TextButton") then
+            local buttonText = string.lower(button.Text)
+            local match = string.find(buttonText, lowerInput, 1, true)
+            button.Visible = (match ~= nil)
+
+            if button.Visible then
+                table.insert(visibleButtons, button)
+            end
+        end
+    end
+
+    for i, button in ipairs(visibleButtons) do
+        button.Position = UDim2.new(0, 10, 0, (i - 1) * 40)
+    end
+end
+
+openButton.MouseButton1Click:Connect(openGUI)
+closeButton.MouseButton1Click:Connect(closeGUI)
+
+searchBox.Changed:Connect(function(property)
+    if property == "Text" then
+        filterButtons(searchBox.Text)
+    end
+end)
+
+createButton("Jump Button", "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zephyr10101/jump-button/main/jump_button\",true))()")
+createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubusercontent.com/zephyr10101/chat-executor/main/chat-executor',true))()")
+createButton("Blueberry", "print('Blueberry button clicked')")
+createButton("Grape", "print('Grape button clicked')")
+createButton("Lemon", "print('Lemon button clicked')")
