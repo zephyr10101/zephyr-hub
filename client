@@ -295,7 +295,7 @@ local function createButton(text, script, description, owner)
 	button.Font = Enum.Font.SourceSansSemibold
 	button.TextColor3 = Color3.fromRGB(0, 34, 53)
 	button.TextScaled = true
-	
+
 	local buttonCorner = Instance.new("UICorner", button)
 	buttonCorner.CornerRadius = UDim.new(1, 0)
 
@@ -303,7 +303,7 @@ local function createButton(text, script, description, owner)
 		selectedScriptLabel.Text = text
 		if description == nil then
 			scriptDescription.Text = "Description - No description provided."
-			else
+		else
 			scriptDescription.Text = "Description - "..description
 		end
 		if owner == nil then
