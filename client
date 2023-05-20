@@ -37,7 +37,7 @@ menuBar.Size = UDim2.new(0, 84, 0, 234)
 menuBar.Position = UDim2.new(-0.235, 0, 0, 0)
 local OriginalMenuPos = menuBar.Position
 menuBar.Parent = frame
-menuBar.ZIndex = 4
+menuBar.ZIndex = 5
 menuBar.BackgroundColor3 = Color3.fromRGB(49, 67, 86)
 
 local menuBarCorner = Instance.new("UICorner", menuBar)
@@ -80,7 +80,7 @@ menuTitle.Text = "Menu"
 menuTitle.Size = UDim2.new(1, 0, -0.12, 50)
 menuTitle.Position = UDim2.new(0, 0, 0.034, 0)
 menuTitle.Parent = menuBar
-menuTitle.ZIndex = 4
+menuTitle.ZIndex = 7
 menuTitle.BackgroundColor3 = Color3.fromRGB(27, 46, 68)
 menuTitle.BorderSizePixel = 0
 menuTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -91,18 +91,39 @@ local menuTitleTextConstraint = Instance.new("UITextSizeConstraint", menuTitle)
 menuTitleTextConstraint.MaxTextSize = 10
 
 local menuSF = Instance.new("ScrollingFrame")
-menuSF.Size = UDim2.new(0.93, 0, 0.376, 100)
-menuSF.Position = UDim2.new(0.071, 0, 0.154, 0)
+menuSF.Size = UDim2.new(1, 0, 0.376, 100)
+menuSF.Position = UDim2.new(0, 0, 0.154, 0)
 menuSF.Parent = menuBar
-menuSF.ZIndex = 4
+menuSF.ZIndex = 6
+menuSF.BackgroundTransparency = 1
+menuSF.BorderSizePixel = 0
 
 local gridLayout = Instance.new("UIGridLayout", menuSF)
 gridLayout.CellSize = UDim2.new(1, 0, 0, 20)
 
-local PlayerButton = Instance.new("TextButton", menuSF)
-PlayerButton.ZIndex = 6
-PlayerButton.BorderSizePixel = 0
-PlayerButton.BackgroundColor3 = Color3.new(255, 255, 255)
+local function createMenuButton(name, text)
+
+local menuButton = Instance.new("TextButton", menuSF)
+menuButton.ZIndex = 7
+menuButton.BorderSizePixel = 0
+menuButton.BackgroundColor3 = Color3.new(0, 0, 0)
+menuButton.BackgroundTransparency = 0.6
+menuButton.Font = Enum.Font.SourceSansBold
+menuButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+menuButton.TextScaled = true
+menuButton.Text = text
+menuButton.Name = name
+
+local menuButtonTextConstraint = Instance.new("UITextSizeConstraint", menuButton)
+	menuButtonTextConstraint.MaxTextSize = 14
+	
+	local menuButtonPadding = Instance.new("UIPadding", menuButton)
+	menuButtonPadding.PaddingRight = UDim.new(0, 8)
+end
+
+createMenuButton("Credits", "Credits")
+createMenuButton("PlayerButton", "LocalPlayer")
+
 
 local frameCorner = Instance.new("UICorner")
 frameCorner.CornerRadius = UDim.new(0, 4)
@@ -371,7 +392,7 @@ createButton("Tiger Admin (Prison Life)", 'loadstring(game:HttpGet("https://scri
 createButton("Fly Gui V3", 'loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Fly-GUI-V3-10610"))()', "Fly on Mobile!")
 createButton("Infinite Yield", "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()", "A classic admin gui")
 createButton("Car fly script", 'loadstring(game:HttpGet("https://pastebin.com/raw/MHE1cbWF"))()', "Make your vehicle fly!", "WarriorRoberr")
-createButton("FE C00lgui", 'loadstring(game:GetObjects("rbxassetid://8127297852")[1].Source)()', "FE Scripts Gui, c00lkidd SS remake")
+createButton("FE C00lgui", 'loadstring(game:GetObjects("rbxassetid://8127297852")[1].Source)()', "FE Scripts Gui, c00lkidd SS remake", "LordMuhamad")
 
 -- dragify
 
