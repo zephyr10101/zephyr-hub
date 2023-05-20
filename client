@@ -1,3 +1,5 @@
+-- Made by Zephyr on YouTube
+
 local player = game.Players.LocalPlayer
 
 local gui = Instance.new("ScreenGui")
@@ -64,15 +66,26 @@ frameCorner.CornerRadius = UDim.new(0, 4)
 frameCorner.Parent = frame
 
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(0, 320, 0, 24)
+title.Size = UDim2.new(0, 344, 0, 24)
 title.Position = UDim2.new(0.017, 0, 0.026, 0)
 title.Text = "Zephyr Hub Client"
 title.Parent = frame
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.SourceSansBold
+title.TextScaled = true
+title.BackgroundColor3 = Color3.fromRGB(0, 34, 53)
 
-local closeButton = Instance.new("TextButton")
-closeButton.Size = UDim2.new(0, 24, 0, 24)
-closeButton.Position = UDim2.new(0.911, 0, 0.026, 0)
-closeButton.Text = "X"
+local titleTextConstaint = Instance.new("UITextSizeConstraint", title)
+titleTextConstaint.MaxTextSize = 18
+
+local titleCorner = Instance.new("UICorner", title)
+titleCorner.CornerRadius = UDim.new(0, 4)
+
+local closeButton = Instance.new("ImageButton")
+closeButton.Size = UDim2.new(0, 22, 0, 22)
+closeButton.Position = UDim2.new(0.911, 0, 0.038, 0)
+closeButton.Image = "rbxassetid://13082301967"
+closeButton.BackgroundTransparency = 1
 closeButton.Parent = frame
 
 local searchBox = Instance.new("TextBox")
@@ -82,32 +95,90 @@ searchBox.ClearTextOnFocus = false
 searchBox.Parent = frame
 searchBox.Text = ""
 searchBox.PlaceholderText = "search script..."
-searchBox.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
+searchBox.PlaceholderColor3 = Color3.fromRGB(221, 221, 221)
+searchBox.BackgroundColor3 = Color3.fromRGB(96, 110, 122)
+searchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+searchBox.Font = Enum.Font.SourceSansSemibold
+searchBox.TextScaled = true
+
+local searchBoxStroke = Instance.new("UIStroke", searchBox)
+searchBoxStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+searchBoxStroke.Thickness = 3
+searchBoxStroke.Color = Color3.fromRGB(0, 34, 53)
+
+local searchBoxCorner = Instance.new("UICorner", searchBox)
+searchBoxCorner.CornerRadius = UDim.new(0, 4)
+
+local searchBoxTextConstraint = Instance.new("UITextSizeConstraint", searchBox)
+searchBoxTextConstraint.MaxTextSize = 16
 
 local clearButton = Instance.new("TextButton")
 clearButton.Text = "Clear"
 clearButton.Size = UDim2.new(0, 43, 0, 26)
 clearButton.Position = UDim2.new(0.545, 0, 0.154, 0)
 clearButton.Parent = frame
+clearButton.BackgroundColor3 = Color3.fromRGB(153, 0, 0)
+clearButton.TextColor3 = Color3.fromRGB(0, 34, 53)
+clearButton.Font = Enum.Font.SourceSansBold
+clearButton.TextScaled = true
 clearButton.MouseButton1Click:Connect(function()
 	searchBox.Text = ""
 end)
+
+local clearButtonCorner = Instance.new("UICorner", clearButton)
+clearButtonCorner.CornerRadius = UDim.new(0, 4)
+
+local clearButtonStroke = Instance.new("UIStroke", clearButton)
+clearButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+clearButtonStroke.Color = Color3.fromRGB(0, 34, 53)
+clearButtonStroke.Thickness = 3
+
+local clearButtonTextConstraint = Instance.new("UITextSizeConstraint", clearButton)
+clearButtonTextConstraint.MaxTextSize = 14
 
 local scrollingFrame = Instance.new("ScrollingFrame")
 scrollingFrame.Size = UDim2.new(0, 232, 0, 155)
 scrollingFrame.Position = UDim2.new(0.017, 0, 0.295, 0)
 scrollingFrame.Parent = frame
+scrollingFrame.BackgroundTransparency = 1
+
+local buttonsBackground = Instance.new("Frame")
+buttonsBackground.Size = UDim2.new(0, 232, 0, 155)
+buttonsBackground.Position = UDim2.new(0.017, 0, 0.295, 0)
+buttonsBackground.Parent = frame
+buttonsBackground.BackgroundTransparency = 0.4
+buttonsBackground.BackgroundColor3 = Color3.fromRGB(0, 34, 53)
+buttonsBackground.ZIndex = 1
+
+local buttonsBackgroundCorner = Instance.new("UICorner", buttonsBackground)
+buttonsBackgroundCorner.CornerRadius = UDim.new(0, 8)
+
+local buttonsBackgroundStroke = Instance.new("UIStroke", buttonsBackground)
+buttonsBackgroundStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+buttonsBackgroundStroke.Color = Color3.fromRGB(0, 34, 53)
+buttonsBackgroundStroke.Thickness = 3
 
 local selectedScriptFrame = Instance.new("Frame")
 selectedScriptFrame.Size = UDim2.new(0, 104, 0, 187)
 selectedScriptFrame.Position = UDim2.new(0.687, 0, 0.154, 0)
 selectedScriptFrame.Parent = frame
+selectedScriptFrame.BackgroundColor3 = Color3.fromRGB(0, 34, 53)
+
+local scriptFrameCorner = Instance.new("UICorner", selectedScriptFrame)
+scriptFrameCorner.CornerRadius = UDim.new(0, 4)
 
 local selectedScriptLabel = Instance.new("TextLabel")
 selectedScriptLabel.Size = UDim2.new(1, 0, 0, 24)
 selectedScriptLabel.Position = UDim2.new(0., 0, 0, 0)
 selectedScriptLabel.Text = "No script selected"
 selectedScriptLabel.Parent = selectedScriptFrame
+selectedScriptLabel.BackgroundTransparency = 1
+selectedScriptLabel.TextScaled = true
+selectedScriptLabel.Font = Enum.Font.SourceSansBold
+selectedScriptLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local scriptLabelTextConstaint = Instance.new("UITextSizeConstraint", selectedScriptLabel)
+scriptLabelTextConstaint.MaxTextSize = 14
 
 local scriptDescription = Instance.new("TextLabel")
 scriptDescription.TextXAlignment = Enum.TextXAlignment.Left
@@ -121,6 +192,21 @@ runButton.Size = UDim2.new(1, 0, 0, 24)
 runButton.Position = UDim2.new(0, 0, 0.872, 0)
 runButton.Text = "Run"
 runButton.Parent = selectedScriptFrame
+runButton.BackgroundColor3 = Color3.fromRGB(96, 110, 122)
+runButton.TextColor3 = Color3.fromRGB(0, 34, 53)
+runButton.Font = Enum.Font.SourceSansBold
+runButton.TextScaled = true
+
+local runButtonTextConstraint = Instance.new("UITextSizeConstraint", runButton)
+runButtonTextConstraint.MaxTextSize = 12
+
+local runButtonStroke = Instance.new("UIStroke", runButton)
+runButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+runButtonStroke.Color = Color3.fromRGB(0, 34, 53)
+runButtonStroke.Thickness = 3
+
+local runButtonCorner = Instance.new("UICorner", runButton)
+runButtonCorner.CornerRadius = UDim.new(0, 4)
 
 local function createButton(text, script, description)
 	local button = Instance.new("TextButton")
@@ -128,6 +214,7 @@ local function createButton(text, script, description)
 	button.Position = UDim2.new(0, 10, 0, #scrollingFrame:GetChildren() * 40)
 	button.Text = text
 	button.Parent = scrollingFrame
+	button.ZIndex = 3
 
 	button.MouseButton1Click:Connect(function()
 		selectedScriptLabel.Text = text
@@ -180,48 +267,50 @@ searchBox.Changed:Connect(function(property)
 	end
 end)
 
--- dragify
-
 createButton("Jump Button", "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zephyr10101/jump-button/main/jump_button\",true))()")
 createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubusercontent.com/zephyr10101/chat-executor/main/chat-executor',true))()")
 createButton("Blueberry", "print('Blueberry button clicked')")
 createButton("Grape", "print('Grape button clicked')")
 createButton("Lemon", "print('Lemon button clicked')")
 
-local UIS = game:GetService("UserInputService")
-function dragify(Frame)
-	local dragToggle = nil
-	local dragSpeed = 0
-	local dragInput = nil
-	local dragStart = nil
-	local dragPos = nil
-	local startPos = Frame.Position
-	local function updateInput(input)
-		local Delta = input.Position - dragStart
-		local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
-		game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.25), {Position = Position}):Play()
-	end
-	Frame.InputBegan:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
-			dragToggle = true
-			dragStart = input.Position
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragToggle = false
-				end
-			end)
-		end
-	end)
-	Frame.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			dragInput = input
-		end
-	end)
-	game:GetService("UserInputService").InputChanged:Connect(function(input)
-		if input == dragInput and dragToggle then
-			updateInput(input)
-		end
-	end)
+-- dragify
+
+local UserInputService = game:GetService("UserInputService")
+
+local gui = frame
+
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+	local delta = input.Position - dragStart
+	gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 end
 
-dragify(frame)
+gui.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = gui.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+gui.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		update(input)
+	end
+end)
