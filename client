@@ -28,14 +28,22 @@ menuBar.Position = UDim2.new(-0.235, 0, 0, 0)
 local OriginalMenuPos = menuBar.Position
 menuBar.Parent = frame
 menuBar.ZIndex = 4
+menuBar.BackgroundColor3 = Color3.fromRGB(49, 67, 86)
+
+local menuBarCorner = Instance.new("UICorner", menuBar)
+menuBarCorner.CornerRadius = UDim.new(0, 4)
 
 local menuButton = Instance.new("TextButton")
 local open = false
 menuButton.Text = ">"
-menuButton.Size = UDim2.new(0, 12, 0, 50)
-menuButton.Position = UDim2.new(1, 0, 0.744, 0)
+menuButton.Size = UDim2.new(0, 22, 0, 50)
+menuButton.Position = UDim2.new(0.94, 0, 0.744, 0)
 menuButton.ZIndex = 4
 menuButton.Parent = menuBar
+menuButton.Font = Enum.Font.FredokaOne
+menuButton.TextScaled = true
+menuButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+menuButton.BackgroundColor3 = Color3.fromRGB(96, 110, 122)
 menuButton.MouseButton1Click:Connect(function()
 	if open == false then
 		menuBar:TweenPosition(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, 0.5, true)
@@ -48,12 +56,29 @@ menuButton.MouseButton1Click:Connect(function()
 	end
 end)
 
+local menuButtonCorner = Instance.new("UICorner", menuButton)
+menuButtonCorner.CornerRadius = UDim.new(0, 8)
+
+local menuButtonTextConstraint = Instance.new("UITextSizeConstraint", menuButton)
+menuButtonTextConstraint.MaxTextSize = 14
+
+local menuButtonPadding = Instance.new("UIPadding", menuButton)
+menuButtonPadding.PaddingLeft = UDim.new(0, 4)
+
 local menuTitle = Instance.new("TextLabel")
 menuTitle.Text = "Menu"
 menuTitle.Size = UDim2.new(1, 0, -0.12, 50)
 menuTitle.Position = UDim2.new(0, 0, 0.034, 0)
 menuTitle.Parent = menuBar
 menuTitle.ZIndex = 4
+menuTitle.BackgroundColor3 = Color3.fromRGB(27, 46, 68)
+menuTitle.BorderSizePixel = 0
+menuTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+menuTitle.Font = Enum.Font.SourceSansBold
+menuTitle.TextScaled = true
+
+local menuTitleTextConstraint = Instance.new("UITextSizeConstraint", menuTitle)
+menuTitleTextConstraint.MaxTextSize = 10
 
 local menuSF = Instance.new("ScrollingFrame")
 menuSF.Size = UDim2.new(0.93, 0, 0.376, 100)
@@ -82,8 +107,8 @@ local titleCorner = Instance.new("UICorner", title)
 titleCorner.CornerRadius = UDim.new(0, 4)
 
 local closeButton = Instance.new("ImageButton")
-closeButton.Size = UDim2.new(0, 22, 0, 22)
-closeButton.Position = UDim2.new(0.911, 0, 0.038, 0)
+closeButton.Size = UDim2.new(0, 18, 0, 18)
+closeButton.Position = UDim2.new(0.918, 0, 0.04, 0)
 closeButton.Image = "rbxassetid://13082301967"
 closeButton.BackgroundTransparency = 1
 closeButton.Parent = frame
@@ -118,7 +143,7 @@ clearButton.Size = UDim2.new(0, 43, 0, 26)
 clearButton.Position = UDim2.new(0.545, 0, 0.154, 0)
 clearButton.Parent = frame
 clearButton.BackgroundColor3 = Color3.fromRGB(153, 0, 0)
-clearButton.TextColor3 = Color3.fromRGB(0, 34, 53)
+clearButton.TextColor3 = Color3.fromRGB(97, 0, 0)
 clearButton.Font = Enum.Font.SourceSansBold
 clearButton.TextScaled = true
 clearButton.MouseButton1Click:Connect(function()
@@ -130,7 +155,7 @@ clearButtonCorner.CornerRadius = UDim.new(0, 4)
 
 local clearButtonStroke = Instance.new("UIStroke", clearButton)
 clearButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-clearButtonStroke.Color = Color3.fromRGB(0, 34, 53)
+clearButtonStroke.Color = Color3.fromRGB(97, 0, 0)
 clearButtonStroke.Thickness = 3
 
 local clearButtonTextConstraint = Instance.new("UITextSizeConstraint", clearButton)
@@ -219,7 +244,7 @@ local function createButton(text, script, description)
 	button.MouseButton1Click:Connect(function()
 		selectedScriptLabel.Text = text
 	end)
-	
+
 	runButton.MouseButton1Click:Connect(function()
 		if selectedScriptLabel.Text == text then
 			loadstring(script)()
