@@ -335,10 +335,7 @@ searchBox.Changed:Connect(function(property)
 end)
 
 createButton("Jump Button", "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zephyr10101/jump-button/main/jump_button\",true))()", "Enable the jump button in any Roblox game.", "@zephyr_scripts")
-createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubusercontent.com/zephyr10101/chat-executor/main/chat-executor',true))()")
-createButton("Blueberry", "print('Blueberry button clicked')")
-createButton("Grape", "print('Grape button clicked')")
-createButton("Lemon", "print('Lemon button clicked')")
+createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubusercontent.com/zephyr10101/chat-executor/main/chat-executor',true))()", "Run any script just by using the chat! Autoexecute recommended", "@zephyr_scripts")
 
 -- dragify
 
