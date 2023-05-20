@@ -195,7 +195,7 @@ scriptFrameCorner.CornerRadius = UDim.new(0, 4)
 local selectedScriptLabel = Instance.new("TextLabel")
 selectedScriptLabel.Size = UDim2.new(1, 0, 0, 24)
 selectedScriptLabel.Position = UDim2.new(0., 0, 0, 0)
-selectedScriptLabel.Text = "No script selected"
+selectedScriptLabel.Text = "Selected Script: None"
 selectedScriptLabel.Parent = selectedScriptFrame
 selectedScriptLabel.BackgroundTransparency = 1
 selectedScriptLabel.TextScaled = true
@@ -211,6 +211,10 @@ scriptDescription.TextYAlignment = Enum.TextYAlignment.Top
 scriptDescription.Size = UDim2.new(0.9, 0, 0.412, 50)
 scriptDescription.Position = UDim2.new(0.048, 0, 0.16, 0)
 scriptDescription.Parent = selectedScriptFrame
+scriptDescription.BackgroundColor3 = Color3.fromRGB(96, 110, 122)
+
+local descriptionCorner = Instance.new("UICorner", scriptDescription)
+descriptionCorner.CornerRadius = UDim.new(0, 4)
 
 local runButton = Instance.new("TextButton")
 runButton.Size = UDim2.new(1, 0, 0, 24)
@@ -240,13 +244,16 @@ local function createButton(text, script, description)
 	button.Text = text
 	button.Parent = scrollingFrame
 	button.ZIndex = 3
+	
+	local currentScript
 
 	button.MouseButton1Click:Connect(function()
-		selectedScriptLabel.Text = text
+		currentScript = text
+		selectedScriptLabel.Text = "Selected Script: "..text
 	end)
 
 	runButton.MouseButton1Click:Connect(function()
-		if selectedScriptLabel.Text == text then
+		if currentScript == text then
 			loadstring(script)()
 		end
 	end)
