@@ -195,7 +195,7 @@ scriptFrameCorner.CornerRadius = UDim.new(0, 4)
 local selectedScriptLabel = Instance.new("TextLabel")
 selectedScriptLabel.Size = UDim2.new(1, 0, 0, 24)
 selectedScriptLabel.Position = UDim2.new(0., 0, 0, 0)
-selectedScriptLabel.Text = "Selected Script: None"
+selectedScriptLabel.Text = "No script selected"
 selectedScriptLabel.Parent = selectedScriptFrame
 selectedScriptLabel.BackgroundTransparency = 1
 selectedScriptLabel.TextScaled = true
@@ -208,10 +208,35 @@ scriptLabelTextConstaint.MaxTextSize = 14
 local scriptDescription = Instance.new("TextLabel")
 scriptDescription.TextXAlignment = Enum.TextXAlignment.Left
 scriptDescription.TextYAlignment = Enum.TextYAlignment.Top
-scriptDescription.Size = UDim2.new(0.9, 0, 0.412, 50)
+scriptDescription.Size = UDim2.new(0.9, 0, 0.236, 50)
 scriptDescription.Position = UDim2.new(0.048, 0, 0.16, 0)
 scriptDescription.Parent = selectedScriptFrame
 scriptDescription.BackgroundColor3 = Color3.fromRGB(96, 110, 122)
+scriptDescription.TextScaled = true
+scriptDescription.Font= Enum.Font.SourceSansSemibold
+scriptDescription.Text = "Description - No script provided, please select a script"
+
+local scriptOwnerLabel = Instance.new("TextLabel")
+scriptOwnerLabel.BackgroundTransparency = 1
+scriptOwnerLabel.Font = Enum.Font.SourceSansBold
+scriptOwnerLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+scriptOwnerLabel.Text = "Script Owner:"
+scriptOwnerLabel.Size = UDim2.new(1, 0, -0.043, 24)
+scriptOwnerLabel.Position = UDim2.new(0, 0, 0.663, 0)
+scriptOwnerLabel.TextScaled = true
+scriptOwnerLabel.Parent = selectedScriptFrame
+
+local scriptOwnerName = Instance.new("TextLabel")
+scriptOwnerName.BackgroundTransparency = 1
+scriptOwnerName.Font = Enum.Font.SourceSans
+scriptOwnerName.TextColor3 = Color3.fromRGB(255, 255, 255)
+scriptOwnerName.Size = UDim2.new(1, 0, -0.011, 24)
+scriptOwnerName.Position = UDim2.new(0, 0, 0.749, 0)
+scriptOwnerName.TextScaled = true
+scriptOwnerName.Parent = selectedScriptFrame
+
+local scriptDescriptionTextConstraint = Instance.new("UITextSizeConstraint", scriptDescription)
+scriptDescriptionTextConstraint.MaxTextSize = 14
 
 local descriptionCorner = Instance.new("UICorner", scriptDescription)
 descriptionCorner.CornerRadius = UDim.new(0, 4)
@@ -237,23 +262,30 @@ runButtonStroke.Thickness = 3
 local runButtonCorner = Instance.new("UICorner", runButton)
 runButtonCorner.CornerRadius = UDim.new(0, 4)
 
-local function createButton(text, script, description)
+local function createButton(text, script, description, owner)
 	local button = Instance.new("TextButton")
 	button.Size = UDim2.new(0, 150, 0, 30)
 	button.Position = UDim2.new(0, 10, 0, #scrollingFrame:GetChildren() * 40)
 	button.Text = text
 	button.Parent = scrollingFrame
 	button.ZIndex = 3
-	
-	local currentScript
 
 	button.MouseButton1Click:Connect(function()
-		currentScript = text
-		selectedScriptLabel.Text = "Selected Script: "..text
+		selectedScriptLabel.Text = text
+		if description == nil then
+			scriptDescription.Text = "Description - No description provided."
+			else
+			scriptDescription.Text = "Description - "..description
+		end
+		if owner == nil then
+			scriptOwnerName.Text = "Unknown"
+		else
+			scriptOwnerName.Text = owner
+		end
 	end)
 
 	runButton.MouseButton1Click:Connect(function()
-		if currentScript == text then
+		if selectedScriptLabel.Text == text then
 			loadstring(script)()
 		end
 	end)
@@ -299,7 +331,7 @@ searchBox.Changed:Connect(function(property)
 	end
 end)
 
-createButton("Jump Button", "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zephyr10101/jump-button/main/jump_button\",true))()")
+createButton("Jump Button", "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zephyr10101/jump-button/main/jump_button\",true))()", "Enable the jump button in any Roblox game.", "@zephyr_scripts")
 createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubusercontent.com/zephyr10101/chat-executor/main/chat-executor',true))()")
 createButton("Blueberry", "print('Blueberry button clicked')")
 createButton("Grape", "print('Grape button clicked')")
