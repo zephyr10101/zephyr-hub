@@ -34,7 +34,7 @@ local open = false
 menuButton.Text = ">"
 menuButton.Size = UDim2.new(0, 12, 0, 50)
 menuButton.Position = UDim2.new(1, 0, 0.744, 0)
-menuButton.ZIndex = 3
+menuButton.ZIndex = 4
 menuButton.Parent = menuBar
 menuButton.MouseButton1Click:Connect(function()
 	if open == false then
