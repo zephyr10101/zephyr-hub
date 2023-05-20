@@ -27,14 +27,14 @@ menuBar.Size = UDim2.new(0, 84, 0, 234)
 menuBar.Position = UDim2.new(-0.235, 0, 0, 0)
 local OriginalMenuPos = menuBar.Position
 menuBar.Parent = frame
-menuBar.ZIndex = 3
+menuBar.ZIndex = 4
 
 local menuButton = Instance.new("TextButton")
 local open = false
 menuButton.Text = ">"
 menuButton.Size = UDim2.new(0, 12, 0, 50)
 menuButton.Position = UDim2.new(1, 0, 0.744, 0)
-menuButton.ZIndex = 2
+menuButton.ZIndex = 3
 menuButton.Parent = menuBar
 menuButton.MouseButton1Click:Connect(function()
 	if open == false then
