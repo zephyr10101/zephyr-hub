@@ -365,7 +365,6 @@ createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubuserc
 createButton("Ghost Hub", "loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/GhostHub'))()", "A hub containing lots of fe and non fe scripts.", "GhostPlayer")
 createButton("Walk On Walls", 'loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()', "No gravity!")
 createButton("Harked Reborn", 'loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Harked-gui-9664"))()', "Almost like a backdoor, only works on some games.")
-createButton("FE Fling Gui", 'loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-FE-Fling-Gui-9576"))()', "Send people to space.")
 
 -- dragify
 
