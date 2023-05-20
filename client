@@ -216,6 +216,9 @@ scriptDescription.TextScaled = true
 scriptDescription.Font= Enum.Font.SourceSansSemibold
 scriptDescription.Text = "Description - No script provided, please select a script"
 
+local scriptDescriptionPadding = Instance.new("UIPadding", scriptDescription)
+scriptDescriptionPadding.PaddingLeft = UDim.new(0, 3)
+
 local scriptOwnerLabel = Instance.new("TextLabel")
 scriptOwnerLabel.BackgroundTransparency = 1
 scriptOwnerLabel.Font = Enum.Font.SourceSansBold
