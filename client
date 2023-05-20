@@ -7,12 +7,22 @@ gui.Name = "ZephyrClient"
 gui.ResetOnSpawn = false
 gui.Parent = player.PlayerGui
 
-local openButton = Instance.new("TextButton")
-openButton.Size = UDim2.new(0, 130, 0, 36)
-openButton.Position = UDim2.new(0.5, -50, 0, 0)
-openButton.Text = "Open GUI"
+local openButton = Instance.new("ImageButton")
+openButton.Size = UDim2.new(0, 58, 0, 58)
+openButton.Position = UDim2.new(0.868, 0, 0.053, 0)
+openButton.ImageColor3 = Color3.fromRGB(104, 104, 104)
+openButton.BackgroundTransparency = 0.4
+openButton.BackgroundColor3 = Color3.fromRGB(0, 34, 53)
+openButton.Image = "rbxassetid://13080046483"
 openButton.Parent = gui
 openButton.Visible = false
+
+local openButtonCorner = Instance.new("UICorner", openButton)
+openButtonCorner.CornerRadius = UDim.new(1, 0)
+
+local openButtonStroke = Instance.new("UIStroke", openButton)
+openButtonStroke.Thickness = 3
+openButtonStroke.Color = Color3.fromRGB(0, 34, 53)
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 358, 0, 234)
@@ -85,6 +95,14 @@ menuSF.Size = UDim2.new(0.93, 0, 0.376, 100)
 menuSF.Position = UDim2.new(0.071, 0, 0.154, 0)
 menuSF.Parent = menuBar
 menuSF.ZIndex = 4
+
+local gridLayout = Instance.new("UIGridLayout", menuSF)
+gridLayout.CellSize = UDim2.new(1, 0, 0, 20)
+
+local PlayerButton = Instance.new("TextButton", menuSF)
+PlayerButton.ZIndex = 6
+PlayerButton.BorderSizePixel = 0
+PlayerButton.BackgroundColor3 = Color3.new(255, 255, 255)
 
 local frameCorner = Instance.new("UICorner")
 frameCorner.CornerRadius = UDim.new(0, 4)
@@ -214,7 +232,7 @@ scriptDescription.Parent = selectedScriptFrame
 scriptDescription.BackgroundColor3 = Color3.fromRGB(96, 110, 122)
 scriptDescription.TextScaled = true
 scriptDescription.Font= Enum.Font.SourceSansSemibold
-scriptDescription.Text = "Description - No script provided, please select a script"
+scriptDescription.Text = "Description - Please select a script."
 
 local scriptDescriptionPadding = Instance.new("UIPadding", scriptDescription)
 scriptDescriptionPadding.PaddingLeft = UDim.new(0, 3)
@@ -237,6 +255,7 @@ scriptOwnerName.Size = UDim2.new(1, 0, -0.011, 24)
 scriptOwnerName.Position = UDim2.new(0, 0, 0.749, 0)
 scriptOwnerName.TextScaled = true
 scriptOwnerName.Parent = selectedScriptFrame
+scriptOwnerName.Text = "None"
 
 local scriptDescriptionTextConstraint = Instance.new("UITextSizeConstraint", scriptDescription)
 scriptDescriptionTextConstraint.MaxTextSize = 14
@@ -267,11 +286,18 @@ runButtonCorner.CornerRadius = UDim.new(0, 4)
 
 local function createButton(text, script, description, owner)
 	local button = Instance.new("TextButton")
-	button.Size = UDim2.new(0, 150, 0, 30)
-	button.Position = UDim2.new(0, 10, 0, #scrollingFrame:GetChildren() * 40)
+	button.Size = UDim2.new(1, 0, 0, 20)
+	button.Position = UDim2.new(0, 10, 0, #scrollingFrame:GetChildren() * 26)
 	button.Text = text
 	button.Parent = scrollingFrame
 	button.ZIndex = 3
+	button.BackgroundColor3 = Color3.fromRGB(206, 213, 218)
+	button.Font = Enum.Font.SourceSansSemibold
+	button.TextColor3 = Color3.fromRGB(0, 34, 53)
+	button.TextScaled = true
+	
+	local buttonCorner = Instance.new("UICorner", button)
+	buttonCorner.CornerRadius = UDim.new(1, 0)
 
 	button.MouseButton1Click:Connect(function()
 		selectedScriptLabel.Text = text
@@ -321,7 +347,7 @@ local function filterButtons(input)
 	end
 
 	for i, button in ipairs(visibleButtons) do
-		button.Position = UDim2.new(0, 10, 0, (i - 1) * 40)
+		button.Position = UDim2.new(0, 10, 0, (i - 1) * 26)
 	end
 end
 
@@ -336,6 +362,9 @@ end)
 
 createButton("Jump Button", "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zephyr10101/jump-button/main/jump_button\",true))()", "Enable the jump button in any Roblox game.", "@zephyr_scripts")
 createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubusercontent.com/zephyr10101/chat-executor/main/chat-executor',true))()", "Run any script just by using the chat! Autoexecute recommended", "@zephyr_scripts")
+createButton("Ghost Hub", "loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/GhostHub'))()", "A hub containing lots of fe and non fe scripts.", "GhostPlayer")
+createButton("Walk On Walls", 'loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()', "No gravity!")
+createButton("Harked Reborn", 'loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Harked-gui-9664"))()', "Almost like a backdoor, only works on some games.")
 
 -- dragify
 
