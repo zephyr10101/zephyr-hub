@@ -10,6 +10,7 @@ openButton.Size = UDim2.new(0, 130, 0, 36)
 openButton.Position = UDim2.new(0.5, -50, 0, 0)
 openButton.Text = "Open GUI"
 openButton.Parent = gui
+openButton.Visible = false
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 358, 0, 234)
@@ -17,6 +18,50 @@ frame.Position = UDim2.new(0.5, -160, 0.5, -100)
 frame.BackgroundTransparency = 0.6
 frame.BackgroundColor3 = Color3.new(0, 0, 0)
 frame.Parent = gui
+frame.ClipsDescendants = true
+
+local menuBar = Instance.new("Frame")
+menuBar.Size = UDim2.new(0, 84, 0, 234)
+menuBar.Position = UDim2.new(-0.235, 0, 0, 0)
+local OriginalMenuPos = menuBar.Position
+menuBar.Parent = frame
+menuBar.ZIndex = 3
+
+local menuButton = Instance.new("TextButton")
+local open = false
+menuButton.Text = ">"
+menuButton.Size = UDim2.new(0, 12, 0, 50)
+menuButton.Position = UDim2.new(1, 0, 0.744, 0)
+menuButton.ZIndex = 2
+menuButton.Parent = menuBar
+menuButton.MouseButton1Click:Connect(function()
+	if open == false then
+		menuBar:TweenPosition(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, 0.5, true)
+		open = true
+		menuButton.Text = "<"
+	elseif open == true then
+		menuBar:TweenPosition(OriginalMenuPos, Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, 0.5, true)
+		open = false
+		menuButton.Text = ">"
+	end
+end)
+
+local menuTitle = Instance.new("TextLabel")
+menuTitle.Text = "Menu"
+menuTitle.Size = UDim2.new(1, 0, -0.12, 50)
+menuTitle.Position = UDim2.new(0, 0, 0.034, 0)
+menuTitle.Parent = menuBar
+menuTitle.ZIndex = 4
+
+local menuSF = Instance.new("ScrollingFrame")
+menuSF.Size = UDim2.new(0.93, 0, 0.376, 100)
+menuSF.Position = UDim2.new(0.071, 0, 0.154, 0)
+menuSF.Parent = menuBar
+menuSF.ZIndex = 4
+
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 4)
+frameCorner.Parent = frame
 
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(0, 320, 0, 24)
@@ -31,12 +76,22 @@ closeButton.Text = "X"
 closeButton.Parent = frame
 
 local searchBox = Instance.new("TextBox")
-searchBox.Size = UDim2.new(0, 232, 0, 26)
+searchBox.Size = UDim2.new(0, 182, 0, 26)
 searchBox.Position = UDim2.new(0.017, 0, 0.154, 0)
 searchBox.ClearTextOnFocus = false
 searchBox.Parent = frame
 searchBox.Text = ""
 searchBox.PlaceholderText = "search script..."
+searchBox.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
+
+local clearButton = Instance.new("TextButton")
+clearButton.Text = "Clear"
+clearButton.Size = UDim2.new(0, 43, 0, 26)
+clearButton.Position = UDim2.new(0.545, 0, 0.154, 0)
+clearButton.Parent = frame
+clearButton.MouseButton1Click:Connect(function()
+	searchBox.Text = ""
+end)
 
 local scrollingFrame = Instance.new("ScrollingFrame")
 scrollingFrame.Size = UDim2.new(0, 232, 0, 155)
@@ -54,72 +109,119 @@ selectedScriptLabel.Position = UDim2.new(0., 0, 0, 0)
 selectedScriptLabel.Text = "No script selected"
 selectedScriptLabel.Parent = selectedScriptFrame
 
+local scriptDescription = Instance.new("TextLabel")
+scriptDescription.TextXAlignment = Enum.TextXAlignment.Left
+scriptDescription.TextYAlignment = Enum.TextYAlignment.Top
+scriptDescription.Size = UDim2.new(0.9, 0, 0.412, 50)
+scriptDescription.Position = UDim2.new(0.048, 0, 0.16, 0)
+scriptDescription.Parent = selectedScriptFrame
+
 local runButton = Instance.new("TextButton")
 runButton.Size = UDim2.new(1, 0, 0, 24)
 runButton.Position = UDim2.new(0, 0, 0.872, 0)
 runButton.Text = "Run"
 runButton.Parent = selectedScriptFrame
 
-local function createButton(text, script)
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(0, 150, 0, 30)
-    button.Position = UDim2.new(0, 10, 0, #scrollingFrame:GetChildren() * 40)
-    button.Text = text
-    button.Parent = scrollingFrame
+local function createButton(text, script, description)
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(0, 150, 0, 30)
+	button.Position = UDim2.new(0, 10, 0, #scrollingFrame:GetChildren() * 40)
+	button.Text = text
+	button.Parent = scrollingFrame
 
-    button.MouseButton1Click:Connect(function()
-        selectedScriptLabel.Text = text
-    end)
-
-    runButton.MouseButton1Click:Connect(function()
-        if selectedScriptLabel.Text == text then
-            loadstring(script)()
-        end
-    end)
+	button.MouseButton1Click:Connect(function()
+		selectedScriptLabel.Text = text
+	end)
+	
+	runButton.MouseButton1Click:Connect(function()
+		if selectedScriptLabel.Text == text then
+			loadstring(script)()
+		end
+	end)
 end
 
 local function openGUI()
-    openButton.Visible = false
-    frame.Visible = true
+	openButton.Visible = false
+	frame.Visible = true
 end
 
 local function closeGUI()
-    openButton.Visible = true
-    frame.Visible = false
+	openButton.Visible = true
+	frame.Visible = false
 end
 
 local function filterButtons(input)
-    local lowerInput = string.lower(input)
-    local visibleButtons = {}
+	local lowerInput = string.lower(input)
+	local visibleButtons = {}
 
-    for _, button in ipairs(scrollingFrame:GetChildren()) do
-        if button:IsA("TextButton") then
-            local buttonText = string.lower(button.Text)
-            local match = string.find(buttonText, lowerInput, 1, true)
-            button.Visible = (match ~= nil)
+	for _, button in ipairs(scrollingFrame:GetChildren()) do
+		if button:IsA("TextButton") then
+			local buttonText = string.lower(button.Text)
+			local match = string.find(buttonText, lowerInput, 1, true)
+			button.Visible = (match ~= nil)
 
-            if button.Visible then
-                table.insert(visibleButtons, button)
-            end
-        end
-    end
+			if button.Visible then
+				table.insert(visibleButtons, button)
+			end
+		end
+	end
 
-    for i, button in ipairs(visibleButtons) do
-        button.Position = UDim2.new(0, 10, 0, (i - 1) * 40)
-    end
+	for i, button in ipairs(visibleButtons) do
+		button.Position = UDim2.new(0, 10, 0, (i - 1) * 40)
+	end
 end
 
 openButton.MouseButton1Click:Connect(openGUI)
 closeButton.MouseButton1Click:Connect(closeGUI)
 
 searchBox.Changed:Connect(function(property)
-    if property == "Text" then
-        filterButtons(searchBox.Text)
-    end
+	if property == "Text" then
+		filterButtons(searchBox.Text)
+	end
 end)
+
+-- dragify
 
 createButton("Jump Button", "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zephyr10101/jump-button/main/jump_button\",true))()")
 createButton("Chat Execution", "loadstring(game:HttpGet('https://raw.githubusercontent.com/zephyr10101/chat-executor/main/chat-executor',true))()")
 createButton("Blueberry", "print('Blueberry button clicked')")
 createButton("Grape", "print('Grape button clicked')")
 createButton("Lemon", "print('Lemon button clicked')")
+
+local UIS = game:GetService("UserInputService")
+function dragify(Frame)
+	local dragToggle = nil
+	local dragSpeed = 0
+	local dragInput = nil
+	local dragStart = nil
+	local dragPos = nil
+	local startPos = Frame.Position
+	local function updateInput(input)
+		local Delta = input.Position - dragStart
+		local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+		game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.25), {Position = Position}):Play()
+	end
+	Frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+			dragToggle = true
+			dragStart = input.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	Frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	game:GetService("UserInputService").InputChanged:Connect(function(input)
+		if input == dragInput and dragToggle then
+			updateInput(input)
+		end
+	end)
+end
+
+dragify(frame)
