@@ -11,18 +11,11 @@ local openButton = Instance.new("ImageButton")
 openButton.Size = UDim2.new(0, 58, 0, 58)
 openButton.Position = UDim2.new(0.868, 0, 0.053, 0)
 openButton.ImageColor3 = Color3.fromRGB(104, 104, 104)
-openButton.BackgroundTransparency = 0.4
+openButton.BackgroundTransparency = 1
 openButton.BackgroundColor3 = Color3.fromRGB(0, 34, 53)
 openButton.Image = "rbxassetid://13080046483"
 openButton.Parent = gui
 openButton.Visible = false
-
-local openButtonCorner = Instance.new("UICorner", openButton)
-openButtonCorner.CornerRadius = UDim.new(1, 0)
-
-local openButtonStroke = Instance.new("UIStroke", openButton)
-openButtonStroke.Thickness = 3
-openButtonStroke.Color = Color3.fromRGB(0, 34, 53)
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 358, 0, 234)
@@ -152,6 +145,105 @@ closeButton.Image = "rbxassetid://13082301967"
 closeButton.BackgroundTransparency = 1
 closeButton.Parent = frame
 
+local closeFrame = Instance.new("Frame", frame)
+closeFrame.Size = UDim2.new(1, 0, 1, 0)
+closeFrame.Position = UDim2.new(0, 0, 1, 0)
+closeFrame.BackgroundColor3 = Color3.fromRGB(0, 34, 53)
+closeFrame.ZIndex = 8
+
+-- Closing the Gui
+local warningLabel = Instance.new("TextLabel")
+warningLabel.Parent = closeFrame
+warningLabel.Size = UDim2.new(0, 324, 0, 34)
+warningLabel.Position = UDim2.new(0.034, 0, 0.034, 0)
+warningLabel.TextScaled = true
+warningLabel.Font = Enum.Font.SourceSansBold
+warningLabel.BackgroundTransparency = 1
+warningLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+warningLabel.ZIndex = 8
+warningLabel.Text = "Are you sure you want to quit?"
+
+local warningLabelTextConstraint = Instance.new("UITextSizeConstraint", warningLabel)
+warningLabelTextConstraint.MaxTextSize = 24
+
+local warningDescription = Instance.new("TextLabel")
+warningDescription.Parent = closeFrame
+warningDescription.Size = UDim2.new(0, 324, 0, 64)
+warningDescription.Position = UDim2.new(0.034, 0, 0.201, 0)
+warningDescription.TextScaled = true
+warningDescription.Font = Enum.Font.SourceSansSemibold
+warningDescription.BackgroundTransparency = 1
+warningDescription.TextColor3 = Color3.fromRGB(255, 255, 255)
+warningDescription.ZIndex = 8
+warningDescription.Text = "The close button will completely delete the Ui. If you want to access the script again soon without having to re-execute it, I would recommend using the minimise button instead."
+
+local warningDescriptionTextConstraint = Instance.new("UITextSizeConstraint", warningDescription)
+warningDescriptionTextConstraint.MaxTextSize = 12
+
+local continueButton = Instance.new("TextButton")
+continueButton.Parent = closeFrame
+continueButton.Size = UDim2.new(0, 80, 0, 50)
+continueButton.Position = UDim2.new(0.665, 0, 0.637, 0)
+continueButton.TextScaled = true
+continueButton.Font = Enum.Font.SourceSansBold
+continueButton.BackgroundTransparency = 0
+continueButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+continueButton.TextColor3 = Color3.fromRGB(171, 0, 0)
+continueButton.ZIndex = 8
+continueButton.Text = "Quit"
+
+local continueButtonTextConstraint = Instance.new("UITextSizeConstraint", continueButton)
+continueButtonTextConstraint.MaxTextSize = 20
+
+local continueButtonCorner = Instance.new("UICorner", continueButton)
+continueButtonCorner.CornerRadius = UDim.new(0, 4)
+
+local continueButtonStroke = Instance.new("UIStroke", continueButton)
+continueButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+continueButtonStroke.Color = Color3.fromRGB(171, 0, 0)
+continueButtonStroke.Thickness = 3
+
+local cancelButton = Instance.new('TextButton')
+cancelButton.Parent = closeFrame
+cancelButton.Size = UDim2.new(0, 80, 0, 50)
+cancelButton.Position = UDim2.new(0.112, 0, 0.637, 0)
+cancelButton.TextScaled = true
+cancelButton.Font = Enum.Font.SourceSansBold
+cancelButton.BackgroundTransparency = 0
+cancelButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+cancelButton.TextColor3 = Color3.fromRGB(0, 156, 0)
+cancelButton.ZIndex = 8
+cancelButton.Text = "Stay"
+
+local zephyrImage = Instance.new("ImageLabel")
+zephyrImage.BackgroundTransparency = 1
+zephyrImage.Size = UDim2.new(0, 100, 0, 100)
+zephyrImage.Position = UDim2.new(0.36, 0, 0.526, 0)
+zephyrImage.Image = "rbxassetid://13080046483"
+zephyrImage.Parent = closeFrame
+zephyrImage.ZIndex = 8
+
+local cancelButtonTextConstraint = Instance.new("UITextSizeConstraint",cancelButton)
+cancelButtonTextConstraint.MaxTextSize = 20
+
+local cancelButtonCorner = Instance.new("UICorner", cancelButton)
+cancelButtonCorner.CornerRadius = UDim.new(0, 4)
+
+local cancelButtonStroke = Instance.new("UIStroke", cancelButton)
+cancelButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+cancelButtonStroke.Color = Color3.fromRGB(0, 156, 0)
+cancelButtonStroke.Thickness = 3
+
+local closeFrameCorner = Instance.new("UICorner", closeFrame)
+closeFrameCorner.CornerRadius = UDim.new(0, 4)
+
+local minimiseButton = Instance.new("ImageButton")
+minimiseButton.Size = UDim2.new(0, 18, 0, 18)
+minimiseButton.Position = UDim2.new(0.856, 0, 0.04, 0)
+minimiseButton.Image = "rbxassetid://13082372804"
+minimiseButton.BackgroundTransparency = 1
+minimiseButton.Parent = frame
+
 local searchBox = Instance.new("TextBox")
 searchBox.Size = UDim2.new(0, 182, 0, 26)
 searchBox.Position = UDim2.new(0.017, 0, 0.154, 0)
@@ -201,10 +293,26 @@ local clearButtonTextConstraint = Instance.new("UITextSizeConstraint", clearButt
 clearButtonTextConstraint.MaxTextSize = 14
 
 local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(0, 232, 0, 155)
+scrollingFrame.Size = UDim2.new(0, 232, 0, 120)
 scrollingFrame.Position = UDim2.new(0.017, 0, 0.295, 0)
 scrollingFrame.Parent = frame
 scrollingFrame.BackgroundTransparency = 1
+
+local creditsLabel = Instance.new("TextLabel")
+creditsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+creditsLabel.Position = UDim2.new(0.056, 0, 0.829, 0)
+creditsLabel.Size = UDim2.new(0, 218, 0, 32)
+creditsLabel.Text = "Gui and Functionality - Only zephyr so far."
+creditsLabel.TextScaled = true
+creditsLabel.Font = Enum.Font.SourceSansSemibold
+creditsLabel.BackgroundTransparency = 1
+creditsLabel.Parent = frame
+creditsLabel.TextXAlignment = Enum.TextXAlignment.Left
+creditsLabel.TextYAlignment = Enum.TextYAlignment.Top
+creditsLabel.ZIndex = 2
+
+local creditsLabelTextConstraint = Instance.new("UITextSizeConstraint", creditsLabel)
+creditsLabelTextConstraint.MaxTextSize = 12
 
 local buttonsBackground = Instance.new("Frame")
 buttonsBackground.Size = UDim2.new(0, 232, 0, 155)
@@ -346,10 +454,41 @@ local function openGUI()
 	frame.Visible = true
 end
 
-local function closeGUI()
+local function minimiseGUI()
 	openButton.Visible = true
 	frame.Visible = false
 end
+
+closeButton.MouseButton1Click:Connect(function()
+	closeFrame:TweenPosition(UDim2.new(0, 0, 0, 0))
+	wait(0.7)
+	minimiseButton.Visible = false
+	scrollingFrame.Visible = false
+	menuBar.Visible = false
+	searchBox.Visible = false
+	runButton.Visible = false
+end)
+
+cancelButton.MouseButton1Click:Connect(function()
+closeFrame:TweenPosition(UDim2.new(0, 0, 1, 0))
+	minimiseButton.Visible = true
+	scrollingFrame.Visible = true
+	menuBar.Visible = true
+	searchBox.Visible = true
+	runButton.Visible = true
+end)
+
+local originalPos = frame.Position
+local canDrag = true
+
+continueButton.MouseButton1Click:Connect(function()
+	canDrag = false
+	local currentPos = frame.Position
+	local targetY = currentPos.Y.Offset + (frame.Size.Y.Offset * 3) -- Move it down three times the height
+	frame:TweenPosition(UDim2.new(currentPos.X.Scale, currentPos.X.Offset, currentPos.Y.Scale, targetY))
+	wait(1)
+	gui:Destroy()
+end)
 
 local function filterButtons(input)
 	local lowerInput = string.lower(input)
@@ -373,7 +512,7 @@ local function filterButtons(input)
 end
 
 openButton.MouseButton1Click:Connect(openGUI)
-closeButton.MouseButton1Click:Connect(closeGUI)
+minimiseButton.MouseButton1Click:Connect(minimiseGUI)
 
 searchBox.Changed:Connect(function(property)
 	if property == "Text" then
@@ -431,7 +570,7 @@ gui.InputChanged:Connect(function(input)
 end)
 
 UserInputService.InputChanged:Connect(function(input)
-	if input == dragInput and dragging then
+	if input == dragInput and dragging and canDrag then
 		update(input)
 	end
 end)
