@@ -69,7 +69,7 @@ local menuButtonPadding = Instance.new("UIPadding", menuButton)
 menuButtonPadding.PaddingLeft = UDim.new(0, 4)
 
 local menuTitle = Instance.new("TextLabel")
-menuTitle.Text = "Menu"
+menuTitle.Text = "Menu (coming soon...)"
 menuTitle.Size = UDim2.new(1, 0, -0.12, 50)
 menuTitle.Position = UDim2.new(0, 0, 0.034, 0)
 menuTitle.Parent = menuBar
@@ -94,7 +94,7 @@ menuSF.BorderSizePixel = 0
 local gridLayout = Instance.new("UIGridLayout", menuSF)
 gridLayout.CellSize = UDim2.new(1, 0, 0, 20)
 
-local function createMenuButton(name, text)
+local function createMenuButton(text, property)
 
 local menuButton = Instance.new("TextButton", menuSF)
 menuButton.ZIndex = 7
@@ -105,7 +105,6 @@ menuButton.Font = Enum.Font.SourceSansBold
 menuButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 menuButton.TextScaled = true
 menuButton.Text = text
-menuButton.Name = name
 
 local menuButtonTextConstraint = Instance.new("UITextSizeConstraint", menuButton)
 	menuButtonTextConstraint.MaxTextSize = 14
